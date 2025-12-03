@@ -1,0 +1,11 @@
+[project]
+name = "ml-algorithms"
+version = "0.1.0"
+description = "My implementation of famous ML algorithms shown in the course 'Machine Learning' (CK0193) at the Universidade Federal do Ceará."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.5",
+    "pandas>=2.3.3",
+]
