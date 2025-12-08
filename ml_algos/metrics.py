@@ -12,3 +12,15 @@ def mean_squared_error(y: np.ndarray, y_hat: np.ndarray) -> tuple[float, np.ndar
     loss = np.sum(raw_error**2) / (2*y.shape[0])
 
     return loss, raw_error
+
+def root_mean_squared_error(y: np.ndarray, y_hat: np.ndarray) -> tuple[float, np.ndarray]:
+    """
+    Function to compute root mean squared error loss.
+    
+    :param y: Target values
+    :param y_hat: Predicted values
+    """
+
+    loss, raw_error = mean_squared_error(y, y_hat)
+
+    return np.sqrt(loss), raw_error
