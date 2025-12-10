@@ -1,11 +1,11 @@
 from typing import Callable
-from itertools import combinations_with_replacement
+from itertools import combinations, combinations_with_replacement
 from abc import ABC
 import numpy as np
 from ml_algos.linear_regression import OLSLinearRegression, GDLinearRegression, SGDLinearRegression
 from ml_algos.metrics import mean_squared_error
 
-def add_polynomial_features(X: np.ndarray, degree: int, include_bias: bool = True) -> np.ndarray:
+def add_polynomial_features(X: np.ndarray, degree: int, include_bias: bool = True, interaction_only: bool = False) -> np.ndarray:
     """
     Generates a new feature matrix containing all polynomial terms of the original features up to the specified degree.
     
@@ -13,15 +13,17 @@ def add_polynomial_features(X: np.ndarray, degree: int, include_bias: bool = Tru
     
     :param X: Matrix to be transformed.
     :param degree: Polynomial degree
-    :param include_bias: If True, includes a bias column in the matrix. If False, assumes that the matrix already has the bias column.
+    :param include_bias: If True, includes a bias column in the matrix.
     :return: Transformed matrix.
     """
 
     X_transformed = X
     new_features = []
 
+    combiner = combinations if interaction_only else combinations_with_replacement
+
     for d in range(2, degree + 1):
-        for i in combinations_with_replacement(range(X.shape[1]), d):
+        for i in combiner(range(X.shape[1]), d):
             new_features.append(np.prod(X[:, i], axis=1))
 
     if include_bias:
